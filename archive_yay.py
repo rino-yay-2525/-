@@ -3,7 +3,7 @@ import noble_tls
 from noble_tls import Client
 import time
 
-user_id = "8532316"
+user_id = ""
 
 session = noble_tls.Session(client=Client.CHROME_120,random_tls_extension_order=True)
 
@@ -23,14 +23,14 @@ async def archive(url):
         'upgrade-insecure-requests': '1',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
     }
-    r_1 = await session.get('https://archive.is/', headers=headers,proxy="http://spjy9do33e:b4hLe7mnVhE58wdoOn@jp.smartproxy.com:30000")
+    r_1 = await session.get('https://archive.is/', headers=headers,proxy=proxy)
     submit_id = str(r_1.content).split('name="submitid', 1)[1].split('value="', 1)[1].split('"', 1)[0]
 
     params = {
         'submitid': submit_id,
         'url': url,
     }
-    r_2 = await session.get('https://archive.is/submit/', params=params, headers=headers,proxy="http://spjy9do33e:b4hLe7mnVhE58wdoOn@jp.smartproxy.com:30000")
+    r_2 = await session.get('https://archive.is/submit/', params=params, headers=headers,proxy=proxy)
     if r_1.status_code == 200 and r_2.status_code == 200:
         result = 'https://archive.is/' + str(r_2.text).split('https://archive.is/wip/', 1)[1].split('"', 1)[0]
         with open("file.txt","a") as f:
