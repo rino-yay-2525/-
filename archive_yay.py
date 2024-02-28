@@ -4,6 +4,7 @@ from noble_tls import Client
 import time
 
 user_id = ""
+proxy = ""
 
 session = noble_tls.Session(client=Client.CHROME_120,random_tls_extension_order=True)
 
